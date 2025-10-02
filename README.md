@@ -45,7 +45,7 @@ def call_openai(messages: list[dict]):
 
 ## Module 1, Lesson 2: Different types of runs
 ---
-## 🚀 What I Learned
+### 🚀 What I Learned
 - How to use `@traceable` from LangSmith to trace different types of operations:
   - `run_type="llm"` for Large Language Model calls.
   - `run_type="tool"` for custom helper functions.
@@ -55,7 +55,7 @@ def call_openai(messages: list[dict]):
 
 ---
 
-## 🗂️ Changes I Made
+### 🗂️ Changes I Made
 - Created a simple **chat model** (`chat_model`) that returns a hardcoded assistant response for a table booking request.
 - Added an **example streaming chat model** (`my_streaming_chat_model`) to demonstrate chunked responses and concatenation with `_reduce_chunks`.
 - Implemented a **retriever function** (`retrieve_docs`) to show how documents could be returned in LangSmith’s expected format.
@@ -66,7 +66,7 @@ def call_openai(messages: list[dict]):
 
 ---
 
-## 💡 Example Usage
+### 💡 Example 
 
 ```python
 inputs = [
@@ -82,7 +82,7 @@ print(output["choices"][0]["message"]["content"])
 ---
 ## Module 1, Lesson 3: Alternative Tracing methods
 ---
-## 🚀 What I Learned
+### 🚀 What I Learned
 
 - Explored RunTree, wrapOpenAI, and Trace Context Manager as alternative methods for logging traces.
 - Learned how RunTree can track workflows in more advanced scenarios.
@@ -90,7 +90,7 @@ print(output["choices"][0]["message"]["content"])
 - Observed how Trace Context Manager allows contextual trace logging within workflows.
 ---
 
-## 🗂️ Changes I Made
+### 🗂️ Changes I Made
 
 - Used **wrap_openai** to create a wrapped OpenAI client, enabling trace logging for each API call.
 - Implemented a **RunTree-based text pipeline** to trace a series of operations like string concatenation and word counting.
@@ -98,7 +98,7 @@ print(output["choices"][0]["message"]["content"])
 - Showcased **end-to-end trace logging**, from sending prompts to OpenAI to processing text, making debugging and monitoring easier.
 ---
 
-### 💡 Example Usage
+### 💡 Example 
 
 ```python
 strings = ["LangSmith", "makes", "tracing", "easy"]
@@ -108,7 +108,7 @@ print(f"Concatenated: {concatenated}, Word Count: {word_count}")
 ---
 ## Module 1, Lesson 4: Conversational Threads
 ---
-## 🚀 What I Learned
+### 🚀 What I Learned
 
 - Learned how to use `@traceable` to automatically log and trace different steps in a RAG workflow.
 - Understood how to structure a retrieval-augmented generation (RAG) pipeline with separate document retrieval and response generation functions.
@@ -116,7 +116,7 @@ print(f"Concatenated: {concatenated}, Word Count: {word_count}")
 - Saw how to integrate OpenAI LLM calls (`chat.completions.create`) within a traceable chain for reproducible and monitored question-answering.
 ---
 
-## 🗂️ Changes I Made
+### 🗂️ Changes I Made
 
 - Renamed the main RAG function to `student_conversation_rag` to better reflect its purpose.
 - Simplified the system prompt for clearer and shorter answers (max three sentences).
@@ -125,7 +125,7 @@ print(f"Concatenated: {concatenated}, Word Count: {word_count}")
 
 ---
 
-### 💡 Example Usage
+### 💡 Example 
 
 ```python
 @traceable(run_type="chain")
