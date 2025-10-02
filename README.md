@@ -80,7 +80,7 @@ print(output["choices"][0]["message"]["content"])
 
 ```
 ---
-## Module 1, Lesson 2: Different types of runs
+## Module 1, Lesson 3: Alternative Tracing methods
 ---
 ## 🚀 What I Learned
 
@@ -105,4 +105,41 @@ strings = ["LangSmith", "makes", "tracing", "easy"]
 concatenated, word_count, run_tree = text_pipeline(strings)
 print(f"Concatenated: {concatenated}, Word Count: {word_count}")
 ```
+---
+## Module 1, Lesson 4: Conversational Threads
+---
+## 🚀 What I Learned
 
+- Learned how to use `@traceable` to automatically log and trace different steps in a RAG workflow.
+- Understood how to structure a retrieval-augmented generation (RAG) pipeline with separate document retrieval and response generation functions.
+- Observed how to format retrieved documents and system/user prompts before sending them to the OpenAI API.
+- Saw how to integrate OpenAI LLM calls (`chat.completions.create`) within a traceable chain for reproducible and monitored question-answering.
+---
+
+## 🗂️ Changes I Made
+
+- Renamed the main RAG function to `student_conversation_rag` to better reflect its purpose.
+- Simplified the system prompt for clearer and shorter answers (max three sentences).
+- Updated function and variable names for readability (`system_prompt` instead of `rag_system_prompt`).
+- Ensured consistent traceability using `@traceable` decorators across all main steps (retrieval, response generation, LLM call).
+
+---
+
+### 💡 Example Usage
+
+```python
+@traceable(run_type="chain")
+def student_conversation_rag(question: str):
+    documents = retrieve_documents(question)
+    response = generate_response(question, documents)
+    return response.choices[0].message.content
+
+if __name__ == "__main__":
+    question1 = "Hey, can you explain what a binary search tree is?"
+    answer1 = student_conversation_rag(question1)
+    print("Answer:", answer1)
+    
+    question2 = "Why is it better than a normal array?"
+    answer2 = student_conversation_rag(question2)
+    print("Answer:", answer2)
+```
