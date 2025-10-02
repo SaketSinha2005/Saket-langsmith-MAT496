@@ -34,7 +34,7 @@ def get_vector_db_retriever():
     ls_docs = ls_docs_sitemap_loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-        chunk_size=500, chunk_overlap=0
+        chunk_size=2000, chunk_overlap=0
     )
     doc_splits = text_splitter.split_documents(ls_docs)
 
