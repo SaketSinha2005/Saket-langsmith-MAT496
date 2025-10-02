@@ -1,34 +1,43 @@
-# Intro to LangSmith
+# 🧩 LangSmith Tutorial — Module 1, Lesson 1: Tracing Basics
 
-Welcome to Intro to LangSmith!
-
-## Introduction
-In this course we will walk through the fundamentals of LangSmith - exploring observability, prompt engineering, evaluations, feedback mechanisms, and production monitoring. Take a look at the setup instructions below so you can follow along with any of our notebook examples.
+This lesson introduces **tracing** in LangSmith — a way to record, visualize, and debug your LLM application workflows using the `@traceable` decorator.  
+The example builds a simple RAG (Retrieval-Augmented Generation) pipeline and instruments each step for tracing.
 
 ---
 
-## Setup
-Follow these instructions to make sure you have all the resources necessary for this course!
+## 🚀 What I Learnt
 
-### Sign up for LangSmith
-* Sign up [here](https://smith.langchain.com/) 
-* Navigate to the Settings page, and generate an API key in LangSmith.
-* Create a .env file that mimics the provided .env.example. Set `LANGCHAIN_API_KEY` in the .env file.
+### 🧠 1. `@traceable` Automatically Enables Tracing
+- The `@traceable` decorator from **LangSmith** instruments any function to automatically log its inputs, outputs, and duration.  
+- Every decorated function call (and its nested calls) becomes a **trace** or **run** in the LangSmith dashboard — no manual logging required.
 
-### Set OpenAI API key
-* If you don't have an OpenAI API key, you can sign up [here](https://openai.com/index/openai-api/).
-* Set `OPENAI_API_KEY` in the .env file.
+---
 
-### Create an environment and install dependencies
+### 🧩 2. Tracing Captures the Structure of Your RAG Pipeline
+Since each step of the default pipeline is already decorated, I learned to create a **hierarchical trace** of function calls:
+
+```text
+langsmith_rag()   (main run)
+├── retrieve_documents()
+├── generate_response()
+└── call_openai()
 ```
-$ cd intro-to-langsmith
-$ python3 -m venv intro-to-ls
-$ source intro-to-ls/bin/activate
-$ pip install -r requirements.txt
+---
+
+### 🗂️ 3. Metadata Gives More Context to Each Trace
+
+The `@traceable` decorator allows us to attach **custom metadata** to each traced function.  
+This metadata provides additional context that appears in your LangSmith dashboard and helps us organize or filter traces.
+
+#### 💡 Example
+```python
+@traceable(metadata={"model_provider": "openai", "model_name": "gpt-4o-mini"})
+def call_openai(messages: list[dict]):
+    return openai_client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages,
+    )
+
 ```
 
-### Self-Hosted LangSmith
-Note: If you are using a self-hosted version of LangSmith, you'll need to set this environment variable in addition to the others - see this [guide](https://docs.smith.langchain.com/self_hosting/usage) for more info
-```
-LANGSMITH_ENDPOINT = "<your-self-hosted-url>/api/v1"
-```
+---
