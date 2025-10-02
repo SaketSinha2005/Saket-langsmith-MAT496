@@ -1,4 +1,6 @@
-# 🧩 LangSmith Tutorial — Module 1, Lesson 1: Tracing Basics
+# 🧩 LangSmith Tutorial 
+---
+## Module 1, Lesson 1: Tracing Basics
 
 This lesson introduces **tracing** in LangSmith — a way to record, visualize, and debug your LLM application workflows using the `@traceable` decorator.  
 The example builds a simple RAG (Retrieval-Augmented Generation) pipeline and instruments each step for tracing.
@@ -39,5 +41,42 @@ def call_openai(messages: list[dict]):
     )
 
 ```
+---
 
+## Module 1, Lesson 2: Different types of runs
+
+## What I Learned
+- How to use `@traceable` from LangSmith to trace different types of operations:
+  - `run_type="llm"` for Large Language Model calls.
+  - `run_type="tool"` for custom helper functions.
+  - `run_type="chain"` for chaining multiple steps.
+- How to structure inputs for chat models using roles (`system`, `user`, `assistant`).
+- How to format outputs so LangSmith can track responses properly.
+
+---
+
+## Changes I Made
+- Created a simple **chat model** (`chat_model`) that returns a hardcoded assistant response for a table booking request.
+- Added an **example streaming chat model** (`my_streaming_chat_model`) to demonstrate chunked responses and concatenation with `_reduce_chunks`.
+- Implemented a **retriever function** (`retrieve_docs`) to show how documents could be returned in LangSmith’s expected format.
+- Created a **tool + chain example** (`get_current_temperature` and `ask_about_the_weather`) that demonstrates:
+  - Defining a tool function.
+  - LLM requesting a tool call.
+  - Returning the tool response back to the LLM and producing the final output.
+
+---
+
+## Example Usage
+
+```python
+inputs = [
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "I'd like to book a table for two."},
+]
+
+output = chat_model(inputs)
+print(output["choices"][0]["message"]["content"])
+# Output: "Sure, what time would you like to book the table for?"
+
+```
 ---
