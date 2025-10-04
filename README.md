@@ -180,3 +180,43 @@ example_inputs = [
 ("How does a game of chess end?", "A game of chess ends with checkmate, stalemate, resignation, or draw by agreement or insufficient material."),
 ]
 ```
+
+---
+
+## Module 2, Lesson 2: Evaluating
+---
+### 🚀 What I Learned
+- Learned to build evaluators for assessing similarity between outputs.  
+- Explored leveraging LLMs to implement these automated evaluators.  
+- Observed how evaluators can streamline and automate the assessment of responses or code logic.  
+---
+
+### 🗂️ Changes I Made
+
+- Created a custom code logic evaluator using the LangSmith SDK to compare new solutions against reference solutions.  
+- Structured inputs and outputs for coding problems, with `"problem"` as the input and `"solution"` as the output.  
+- Implemented a scoring system that rates the logical correctness of a submitted solution on a scale from 1 (incorrect) to 10 (identical logic).  
+- Demonstrated evaluation using a sample run for a prime-checking function and a reference solution for comparison.
+---
+
+### 💡 Example 
+
+```python
+sample_example = {
+  "inputs": {
+    "problem": "Write a function to check if a number is prime."
+  },
+  "outputs": {
+    "solution": "def is_prime(n):\n    if n < 2: return False\n    for i in range(2, int(n**0.5)+1):\n        if n % i == 0:\n            return False\n    return True"
+  },
+  "metadata": {
+    "dataset_split": [
+      "AI generated",
+      "base"
+    ]
+  }
+}
+
+logic_score = compare_code_logic_v2(sample_run, sample_example)
+print(f"Code logic score: {logic_score}")
+```
