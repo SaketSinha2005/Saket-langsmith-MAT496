@@ -222,7 +222,7 @@ print(f"Code logic score: {logic_score}")
 ```
 
 ---
-## Module 2, Lesson 2: Evaluating
+## Module 2, Lesson 3: Experiments
 ---
 ### 🚀 What I Learned
 - Gained experience running experiments on datasets using LLMs with the LangSmith SDK.  
