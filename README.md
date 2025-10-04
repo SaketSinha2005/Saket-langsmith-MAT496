@@ -143,3 +143,40 @@ if __name__ == "__main__":
     answer2 = student_conversation_rag(question2)
     print("Answer:", answer2)
 ```
+---
+
+## Module 2, Lesson 1: Creating Datasets
+This project explores how to use the **LangSmith SDK** to create, manage, and utilize custom datasets for question-answer workflows.  
+The focus was on understanding dataset creation, structuring inputs/outputs, and preparing data for retrieval-augmented generation (RAG) pipelines.
+
+---
+
+### 🚀 What I Learned
+- Discovered how to **create custom datasets** using the **LangSmith SDK**.  
+- Learned to **structure inputs and outputs** for **question–answer datasets**.  
+- Observed how these datasets can be **used later in retrieval or RAG workflows** to improve model accuracy and relevance.  
+---
+
+### 🗂️ Changes I Made
+- **Creates structured Q&A pairs** — Defines a list of chess-related question–answer examples to be used for dataset creation.  
+- **Initializes a LangSmith client** — Connects to your LangSmith account using the `Client()` class.  
+- **Formats data for upload** — Organizes questions into `inputs` and answers into `outputs` dictionaries as required by the LangSmith API.  
+- **Uploads examples to a dataset** — Sends all Q&A examples to a specific dataset (identified by its `dataset_id`) using `client.create_examples()`.  
+---
+
+### 💡 Example 
+
+```python
+example_inputs = [
+("How do I start a game of chess?", "To start a chess game, set up the board with white pieces on the first rank and black pieces on the eighth rank, placing rooks, knights, bishops, queen, and king in the correct positions."),
+("What are the moves for a pawn?", "Pawns move forward one square, but on their first move they can move two squares. They capture diagonally one square forward."),
+("How does the knight move?", "The knight moves in an L-shape: two squares in one direction and then one square perpendicular. It can jump over other pieces."),
+("What is castling in chess?", "Castling is a special move where the king moves two squares towards a rook, and the rook moves to the square next to the king. It can only be done if neither piece has moved before and there are no pieces between them."),
+("How does the queen move?", "The queen can move any number of squares horizontally, vertically, or diagonally."),
+("What is check and checkmate?", "Check is when the king is under threat of capture. Checkmate is when the king is in check and has no legal moves to escape."),
+("How do bishops move?", "Bishops move any number of squares diagonally and cannot jump over other pieces."),
+("What are the rules for en passant?", "En passant allows a pawn to capture an opponent's pawn that has moved two squares forward from its starting position as if it had moved only one square."),
+("How does a rook move?", "Rooks move any number of squares vertically or horizontally and cannot jump over other pieces."),
+("How does a game of chess end?", "A game of chess ends with checkmate, stalemate, resignation, or draw by agreement or insufficient material."),
+]
+```
