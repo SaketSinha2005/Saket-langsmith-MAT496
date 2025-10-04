@@ -220,3 +220,47 @@ sample_example = {
 logic_score = compare_code_logic_v2(sample_run, sample_example)
 print(f"Code logic score: {logic_score}")
 ```
+
+---
+## Module 2, Lesson 2: Evaluating
+---
+### 🚀 What I Learned
+- Gained experience running experiments on datasets using LLMs with the LangSmith SDK.  
+- Explored creating and using custom evaluators to assess LLM outputs.  
+- Learned how to pass metadata to experiments for tracking model details or additional information.    
+---
+
+### 🗂️ Changes I Made
+- Updated the dataset to use your custom "Chess Dataset" instead of the default dataset.  
+- Converted the `examples` generator from `client.list_examples()` into a list to properly iterate over examples.  
+- Modified the target function to safely access the "question" key using `.get()` to prevent KeyErrors.  
+- Applied the custom evaluator `is_concise_enough` to your dataset examples to automatically assess the conciseness of outputs.
+---
+
+### 💡 Example 
+
+```python
+from langsmith import evaluate, Client
+
+client = Client()
+dataset_id = "Chess Dataset" 
+
+examples = list(client.list_examples(dataset_id=dataset_id))
+print(f"Number of examples: {len(examples)}")  
+
+def is_concise_enough(reference_outputs: dict, outputs: dict) -> dict:
+    score = len(outputs.get("output", "")) < 1.5 * len(reference_outputs.get("output", ""))
+    return {"key": "is_concise", "score": int(score)}
+
+def target_function(inputs: dict):
+    question_key = "question"
+    return langsmith_rag(inputs.get(question_key, "")) 
+
+evaluate(
+    target_function,
+    data=examples, 
+    evaluators=[is_concise_enough],
+    experiment_prefix="gpt-4o"
+)
+
+```
