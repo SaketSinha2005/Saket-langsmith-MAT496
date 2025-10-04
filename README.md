@@ -1,4 +1,8 @@
 # 🧩 LangSmith Tutorial 
+
+- Author Name: Saket Kumar Sinha
+- Credits: LangChain Community for providing the original GitHub repository.  
+- Repository link: [intro-to-langsmith](https://github.com/langchain-ai/intro-to-langsmith)
 ---
 ## Module 1, Lesson 1: Tracing Basics
 
