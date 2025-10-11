@@ -269,7 +269,41 @@ evaluate(
 
 ```
 ---
+## Module 3 Lesson 1: playground Experiments
+---
 
+### 🚀 What I Learned
+- I learned the difference between **prompt templates** and **hardcoded prompts**. Prompt templates provide greater flexibility by allowing the use of variables, making prompts more dynamic and adaptable.  
+- I explored how to use the **Playground on LangSmith Desktop**, which helped me experiment with prompts in an interactive way.  
+- While exploring, I observed how significantly the **system prompt** impacts the output — even small changes can produce dramatically different responses.  
+- The Playground also allows testing **different models and parameters**, making it easier to compare their performance and outputs on the same prompts.  
+- I discovered that outputs can be viewed in a **non-streaming mode**, enabling a clearer comparison of full responses.  
+- I learned about **output schemas**, which enforce a specific output format from the model. Alternatively, tools can be used in place of output schemas to achieve similar results.  
+- Finally, I learned that we can **run tests on datasets directly within the Playground**, allowing us to validate model behavior more efficiently.
+---
+
+
+### 💡 Example
+
+```python
+client = Client()
+dataset_name = "Sample Questions"
+
+dataset = client.create_dataset(
+  dataset_name=dataset_name, description="Sample questions about color",
+)
+
+inputs = [{"question": input_prompt} for input_prompt, _ in example_inputs]
+outputs = [{"output": output_answer} for _, output_answer in example_inputs]
+
+client.create_examples(
+  inputs=inputs,
+  outputs=outputs,
+  dataset_id=dataset.id,
+)
+```
+
+---
 ## Module 3 Lesson 2: Prompt Hub
 ---
 ### 🚀 What I Learned
