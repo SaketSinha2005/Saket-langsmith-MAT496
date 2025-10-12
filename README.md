@@ -268,3 +268,36 @@ evaluate(
 )
 
 ```
+---
+
+## Module 3 Lesson 2: Prompt Hub
+---
+### 🚀 What I Learned
+- I practiced pulling prompts from LangSmith `(client.pull_prompt)` and invoking them with dynamic variables like question and language. 
+- I discovered how to convert LangSmith `“hydrated prompts”` into `OpenAI’s` chat format using convert_prompt_to_openai_format, so I can run them on models like gpt-4o-mini.
+- You learned how to create your own LangChain prompt templates (e.g., for French question-answering), and how to push both static templates and runnable prompt-model chains to LangSmith.    
+---
+
+### 🗂️ Changes I Made
+-  Replaced pirate/future theme with a **science-focused assistant**.
+- Added **multilingual support** (e.g., Hindi or English) in the prompt instructions.
+- Created new **LangChain prompt templates** (`ChatPromptTemplate`) for scientific explanations.
+- Combined prompts with a model (`ChatOpenAI`) into **runnable chains** (`prompt_template | model`).
+- Changed input questions to **science-related questions**, e.g., `"Why is the sky blue?"`.
+---
+
+### 💡 Example
+
+```python
+openai_client = OpenAI()
+converted_messages = convert_prompt_to_openai_format(hydrated_prompt)["messages"]
+
+response = openai_client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=converted_messages,
+)
+print(response.choices[0].message.content)
+
+```
+
+---
