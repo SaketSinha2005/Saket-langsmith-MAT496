@@ -301,3 +301,58 @@ print(response.choices[0].message.content)
 ```
 
 ---
+
+## Module 3 Lesson 3: Prompt Engineering Lifecycle
+---
+### 🚀 What I Learned
+- `@traceable` and `trace_context` let you log code execution and LLM runs to LangSmith automatically.
+- Proper context propagation (async or multi-threaded) is crucial for accurate trace hierarchies.
+- RAG workflow combines document retrieval (`SKLearnVectorStore`) with OpenAI prompt generation for answers.
+- Prompts and messages must be correctly formatted (PromptValue, str, or list of BaseMessages) to avoid errors when calling the LLM.  
+---
+
+### 🗂️ Changes I Made
+- In this video, we walked through an end-to-end example demonstrating how to use **Playground** and **Prompt Hub** to iterate on a specific prompt within our application.  
+- I learned how these tools simplify the process of refining and improving prompts efficiently.  
+- I also discovered that when I return to the **LangSmith** interface to edit and iterate on the prompt — creating new commits — the code automatically reflects the latest updates.  
+- This means I don’t need to modify my code repeatedly after each prompt change, which is a **powerful and time-saving feature**.
+---
+
+### 💡 Example
+
+```python
+from langsmith import Client
+
+example_dataset = attack_on_titan_dataset = [
+    ("How do rockets launch into space?", 
+     "Rockets launch into space using powerful engines that overcome Earth's gravity", 
+     "Answer about rocket launches"),
+    
+    ("Is the Moon a planet?", 
+     "No, the Moon is a natural satellite of Earth", 
+     "Answer about the Moon"),
+    
+    ("Who was the first human in space?", 
+     "Yuri Gagarin was the first human to travel into space", 
+     "Answer about first human in space"),
+]
+
+client = Client()
+dataset_name = "space_queries_dataset"
+
+dataset = client.create_dataset(
+    dataset_name=dataset_name, description="Space exploration related queries"
+)
+
+inputs = [{"question": q, "context": c} for q, c, _ in example_dataset]
+outputs = [{"output": o} for _, _, o in example_dataset]
+
+client.create_examples(
+    inputs=inputs,
+    outputs=outputs,
+    dataset_id=dataset.id,
+)
+
+```
+
+---
